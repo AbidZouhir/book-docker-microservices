@@ -1,4 +1,4 @@
-package role;
+package com.abid.book.role;
 
 import com.abid.book.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "role")
 @EntityListeners(AuditingEntityListener.class)
 public class Role {
     @Id
@@ -28,12 +29,12 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
-    private List<User> users;
+    private List<User> user;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
     @LastModifiedDate
     @Column(insertable = false)
-    private LocalDateTime lstModifiedDate;
+    private LocalDateTime lastModifiedDate;
 }

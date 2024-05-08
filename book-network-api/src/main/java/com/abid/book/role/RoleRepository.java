@@ -1,4 +1,4 @@
-package role;
+package com.abid.book.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

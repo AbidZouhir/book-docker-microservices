@@ -2,13 +2,14 @@ package com.abid.book.user;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import role.Role;
+import com.abid.book.role.Role;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -17,9 +18,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+import static jakarta.persistence.FetchType.EAGER;
+import static jakarta.persistence.FetchType.LAZY;
+
+@Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "_user")
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
     @Id
@@ -34,7 +38,7 @@ public class User implements UserDetails, Principal {
     private boolean accountLocked;
     private boolean enabled;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = EAGER)
     private List<Role> roles;
 
 
@@ -88,7 +92,7 @@ public class User implements UserDetails, Principal {
         return enabled;
     }
 
-    private String fullName(){
+    public String fullName(){
         return firstName+" "+lastName;
     }
 }
