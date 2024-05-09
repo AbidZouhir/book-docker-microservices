@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static jakarta.persistence.FetchType.EAGER;
-import static jakarta.persistence.FetchType.LAZY;
 
 @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
 @Entity

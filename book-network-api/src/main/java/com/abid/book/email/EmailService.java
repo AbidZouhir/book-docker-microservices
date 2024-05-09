@@ -3,6 +3,7 @@ package com.abid.book.email;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -10,49 +11,49 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE_MIXED;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class EmailService {
-
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
 
-
-    // something to be added
     @Async
-    public void sendEmail(String to,
-                          String username,
-                          EmailTemplateName emailTemplate,
-                          String confirmationUrl,
-                          String activationCode,
-                          String subject) throws MessagingException {
+    public void sendEmail(
+            String to,
+            String username,
+            EmailTemplateName emailTemplate,
+            String confirmationUrl,
+            String activationCode,
+            String subject
+    ) throws MessagingException {
         String templateName;
-        if (emailTemplate == null){
+        if (emailTemplate == null) {
             templateName = "confirm-email";
-        }
-        else {
+        } else {
             templateName = emailTemplate.name();
         }
-        MimeMessage mimeMessage=mailSender.createMimeMessage();
-        MimeMessageHelper helper=new MimeMessageHelper(
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(
                 mimeMessage,
-                MimeMessageHelper.MULTIPART_MODE_MIXED,
-                StandardCharsets.UTF_8.name()
+                MULTIPART_MODE_MIXED,
+                UTF_8.name()
         );
-        Map<String,Object> properties=new HashMap<>();
+        Map<String, Object> properties = new HashMap<>();
         properties.put("username", username);
         properties.put("confirmationUrl", confirmationUrl);
-        properties.put( "activation_code", activationCode);
+        properties.put("activation_code", activationCode);
 
-        Context context=new Context();
+        Context context = new Context();
         context.setVariables(properties);
 
-        helper.setFrom("zouhir.abid@hotmail.com");
+        helper.setFrom("zouhir.etransit@gmail.com");
         helper.setTo(to);
         helper.setSubject(subject);
 
