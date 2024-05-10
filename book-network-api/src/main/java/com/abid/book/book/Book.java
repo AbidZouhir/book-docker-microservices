@@ -1,6 +1,9 @@
 package com.abid.book.book;
 
 import com.abid.book.common.BaseEntity;
+import com.abid.book.feedback.FeedBack;
+import com.abid.book.history.BookTransactionHistory;
+import com.abid.book.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +17,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,5 +35,14 @@ public class Book extends BaseEntity {
     private boolean archived;
     private boolean shareable;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
+    @OneToMany(mappedBy = "book")
+    private List<FeedBack> feedBacks;
+
+    @OneToMany(mappedBy = "book")
+    private List<BookTransactionHistory> histories;
 
 }
