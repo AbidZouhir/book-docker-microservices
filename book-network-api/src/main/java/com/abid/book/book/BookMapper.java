@@ -1,5 +1,7 @@
 package com.abid.book.book;
 
+import com.abid.book.history.BookTransactionHistory;
+
 public class BookMapper {
 
     public Book toBook(BookRequest request) {
@@ -26,6 +28,18 @@ public class BookMapper {
                 .owner(book.getOwner().fullName())
                 // todo implement this later
                 //.cover()
+                .build();
+    }
+
+    public BorrowedBookResponse toBorrowedBookResponse(BookTransactionHistory history) {
+        return BorrowedBookResponse.builder()
+                .id(history.getBook().getId())
+                .title(history.getBook().getTitle())
+                .authorName(history.getBook().getAuthorName())
+                .isbn(history.getBook().getIsbn())
+                .rate(history.getBook().getRate())
+                .returned(history.isReturned())
+                .returnApproved(history.isReturnApproved())
                 .build();
     }
 }
