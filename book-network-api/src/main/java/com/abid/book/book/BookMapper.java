@@ -1,5 +1,6 @@
 package com.abid.book.book;
 
+import com.abid.book.file.FileUtils;
 import com.abid.book.history.BookTransactionHistory;
 
 public class BookMapper {
@@ -27,7 +28,7 @@ public class BookMapper {
                 .shareable(book.isShareable())
                 .owner(book.getOwner().fullName())
                 // todo implement this later
-                //.cover()
+                .cover(FileUtils.readFileFromLocation(book.getBookCover()))
                 .build();
     }
 
