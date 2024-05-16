@@ -2,7 +2,9 @@ package com.abid.book.book;
 
 import com.abid.book.file.FileUtils;
 import com.abid.book.history.BookTransactionHistory;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BookMapper {
 
     public Book toBook(BookRequest request) {
