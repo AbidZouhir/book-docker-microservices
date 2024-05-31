@@ -12,7 +12,7 @@ import {BookResponse} from "../../../../services/models/book-response";
 export class MyBooksComponent implements OnInit{
   bookResponse : PageResponseBookResponse = {};
   page = 0;
-  size = 1;
+  size = 4;
   constructor(
     private bookService : BookService,
     private router : Router
@@ -65,14 +65,26 @@ export class MyBooksComponent implements OnInit{
   }
 
   archiveBook(book: BookResponse) {
-
+    this.bookService.updateArchivedStatus({
+      'book-id': book.id as number
+    }).subscribe({
+      next: ()=>{
+        book.archived = !book.archived;
+      }
+    });
   }
 
   shareBook(book: BookResponse) {
-
+    this.bookService.updateShareableStatus({
+      'book-id': book.id as number
+    }).subscribe({
+      next:()=>{
+        book.shareable = !book.shareable;
+      }
+    });
   }
 
   editBook(book: BookResponse) {
-
+    this.router.navigate(['books','manage',book.id])
   }
 }
