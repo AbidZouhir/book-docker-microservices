@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Component({
   selector: 'app-menu',
@@ -6,8 +7,10 @@ import {Component, OnInit} from '@angular/core';
   styleUrl: './menu.component.css'
 })
 export class MenuComponent implements OnInit {
+  name = '';
 
   ngOnInit(): void {
+
     const linkColor = document.querySelectorAll('.nav-link');
     linkColor.forEach(link => {
       if (window.location.href.endsWith(link.getAttribute('href') || '')){
@@ -21,7 +24,8 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
-
+    localStorage.removeItem('token');
+    window.location.reload();
   }
 
 }
