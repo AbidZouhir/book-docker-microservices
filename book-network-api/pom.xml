@@ -10,11 +10,11 @@
     </parent>
     <groupId>com.abid</groupId>
     <artifactId>book-network-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.4</version>
     <name>book-network-api</name>
     <description>book-network-api</description>
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
